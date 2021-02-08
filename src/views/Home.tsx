@@ -1,28 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { appState } from '../store/types';
 
 function Home(): JSX.Element {
     const history = useHistory();
+    const user = useSelector((state: appState) => state.user);
+    const dispatch = useDispatch();
 
     let [count, setCount] = useState<number>();
-
-    useEffect(() => {
-        let pageIndex: HTMLElement | null = document.querySelector('.page-index');
-
-        if (pageIndex) {
-            pageIndex.style.color = 'red';
-        }
-
-        const timer = setInterval(() => {
-            console.log(timer,'setInterval');
-        }, 1000);
-
-
-        return () => {
-            console.log('Interval Will Be Unmount');
-            clearInterval(timer);
-        };
-    }, []);
 
     function onClick(): void {
         history.push('/error');
@@ -31,15 +18,15 @@ function Home(): JSX.Element {
     function addCount(): void {
         const newCount = count !== undefined ? count + 1 : 0;
 
-        console.log(newCount);
         setCount(newCount);
     }
 
     return (
         <div className="page page-index">
-            <p>Home Page</p>
+            <p>Home Page user {JSON.stringify(user)}</p>
             <p onClick={addCount}>count is {count}</p>
             <p onClick={onClick}>go error</p>
+            <p onClick={() => dispatch({type: 'SET_USER', user: {name: 'hello'}})}>Login</p>
         </div>
     );
 }
