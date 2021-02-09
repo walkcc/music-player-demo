@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { appState } from '../store/types';
+import { appState } from '../../store/types';
 
-function Home(): JSX.Element {
+function Index(): JSX.Element {
     const history = useHistory();
     const user = useSelector((state: appState) => state.user);
     const dispatch = useDispatch();
@@ -31,4 +31,4 @@ function Home(): JSX.Element {
     );
 }
 
-export default Home;
+export default Index;
